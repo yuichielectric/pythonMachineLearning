@@ -13,6 +13,7 @@ Python Machine Learning本を読んでいて思ったこと、気づいたこと
 ## Chapter 2
 
 Perceptronでシグモイド関数を使っていなかったり、Negativeな場合のyの値が-1だったりとCourseraの方とは微妙に違う。
+-> (追記) これはneural networkのモデルによってアクティベーション関数などが違うからみたい。
 
 あと、x_0が発火するための閾値として考えるというのは納得。なんでこの項が必要なのかがよくわかってなかったので。
 
@@ -34,3 +35,4 @@ https://docs.scipy.org/doc/numpy-dev/user/quickstart.html
 
 コードを読んでいて一瞬w_の更新がsimultaneousじゃないと思ったが、そんなことはなかった。fitメソッドの一番内側のforループは１つのexample毎にまわしているループで、w_の更新はself.w_[1:] += update * xiで行われているのだった。
 ここでxiはn_features次元のfeature vectorで、updateはscalarなので、w_[1:]の各重みを同時に更新している事になる。
+
