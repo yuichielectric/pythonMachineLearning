@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib.colors import ListedColormap
 from sklearn import datasets
 from sklearn.cross_validation import train_test_split
+from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import Perceptron
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
@@ -54,6 +55,14 @@ if __name__ == '__main__':
     X_combined_std = np.vstack((X_train_std, X_test_std))
     y_combined = np.hstack((y_train, y_test))
     plot_decision_regions(X=X_combined_std, y=y_combined, classifier=ppn, test_idx=range(105, 150))
+    plt.xlabel('petal length [standardized]')
+    plt.ylabel('petal width [standardized]')
+    plt.legend(loc='upper left')
+    plt.show()
+
+    lr = LogisticRegression(C=1000.0, random_state=0)
+    lr.fit(X_train_std, y_train)
+    plot_decision_regions(X_combined_std, y_combined, classifier=lr, test_idx=range(105, 150))
     plt.xlabel('petal length [standardized]')
     plt.ylabel('petal width [standardized]')
     plt.legend(loc='upper left')
