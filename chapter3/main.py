@@ -31,7 +31,8 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
                     alpha=0.8, c=cmap(idx), marker=markers[idx], label=cl)
 
     if test_idx:
-        X_test, y_test = X[test_idx,]
+        X_test, y_test = X[test_idx, :], y[test_idx]
+        plt.scatter(X_test[:, 0], X_test[:, 1], c='', alpha=1.0, linewidths=1, marker='o', s=55, label='test set')
 
 
 if __name__ == '__main__':
@@ -49,3 +50,11 @@ if __name__ == '__main__':
     ppn.fit(X_train_std, y_train)
     y_pred = ppn.predict(X_test_std)
     print('Accuracy: %.2f' % accuracy_score(y_test, y_pred))
+
+    X_combined_std = np.vstack((X_train_std, X_test_std))
+    y_combined = np.hstack((y_train, y_test))
+    plot_decision_regions(X=X_combined_std, y=y_combined, classifier=ppn, test_idx=range(105, 150))
+    plt.xlabel('petal length [standardized]')
+    plt.ylabel('petal width [standardized]')
+    plt.legend(loc='upper left')
+    plt.show()
